@@ -1,0 +1,25 @@
+
+.task {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    background-color: rgb(43, 144, 148);
+    margin-bottom: 1em;
+    padding: 0 1em;
+}
+
+#task-title {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 4rem;
+}
+
+#task-btn {
+    background-color: rgb(81, 79, 79);
+    color: white;
+    padding: 0.3em 0.5em;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 0.2px solid gray;
+}
