@@ -1,16 +1,24 @@
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
 .task {
-    width: 50%;
+    width: 100%;
     display: flex;
     align-items: center;
-    background-color: rgb(43, 144, 148);
-    margin-bottom: 1em;
-    padding: 0 1em;
+    background-color: rgb(12, 85, 88);
+    margin-bottom: 0.8em;
+    padding: 0.5em 1em;
+    position: relative;
 }
 
 #task-title {
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-right: 4rem;
 }
@@ -22,4 +30,43 @@
     font-size: 1rem;
     border-radius: 5px;
     border: 0.2px solid gray;
+}
+
+.update-delete-btns {
+    position: absolute;
+    right: 0.5em;
+}
+
+.update-delete-btns button {
+    padding: 0.3em 0.5em;
+    font-size: 1rem;
+    color: white;
+    border-radius: 0.5em;
+    border: 0.1px solid gray;
+    margin-right: 0.2em;
+    cursor: pointer;
+}
+
+#update-btn {
+    background-color: rgb(211, 153, 6);
+}
+
+#update-btn:hover {
+    background-color: rgb(243, 179, 18);
+}
+
+#complete-btn {
+    background-color: rgb(13, 156, 13);
+}
+
+#complete-btn:hover {
+    background-color: rgb(8, 170, 8);
+}
+
+#delete-btn {
+    background-color: rgb(240, 50, 50);
+}
+
+#delete-btn:hover {
+    background-color: rgb(241, 6, 6);
 }

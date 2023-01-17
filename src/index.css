@@ -1,0 +1,10 @@
+
+body {
+    background-color: rgb(166, 163, 162);
+}
+
+#root {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
