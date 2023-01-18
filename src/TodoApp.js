@@ -8,16 +8,17 @@ import "./TodoApp.css";
 
 export default function TodoApp() {
 
-    const [tasks, setTasks] = useState([
-        {
-            title: "Go to Gym",
-            completed: true
-        },
-        {
-            title: "Buy Grocery",
-            completed: false
-        }
-    ]);
+    const [tasks, setTasks] = useState([]);
+    
+    React.useEffect(() => {
+        let getTasks = JSON.parse(localStorage.getItem("tasks"));
+        setTasks(() => getTasks);
+    },[]);
+
+    React.useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    },[tasks]);
+
 
     function addTask(task) {
         setTasks(tasks => {
@@ -26,6 +27,16 @@ export default function TodoApp() {
                 task
             ]
         })
+    }
+
+    function pendingTasks() {
+        let pendingCount = 0;
+        tasks.forEach((task) => {
+            if(!task.completed){
+                pendingCount += 1;
+            }
+        });
+        return pendingCount;
     }
 
     function updateTask(index) {
@@ -52,8 +63,13 @@ export default function TodoApp() {
             </div>
             <div className="todo-list">
                 <h2 id="todo-list-title">Todo-Tasks</h2>
-                <p id="total-tasks">Total tasks: {tasks.length}</p>
-                {tasks.map((task, index) => <Task {...task} key={index} index={index} updateTask={updateTask} removeTask={removeTask}/>)}
+                <div className="task-count">
+                    <p id="total-tasks">Total tasks: {tasks.length}</p>
+                    <p id="pending-tasks">Pending tasks: {pendingTasks()}</p>
+                </div>
+                <div className="task-div">
+                    {tasks.map((task, index) => <Task {...task} key={index} index={index} updateTask={updateTask} removeTask={removeTask}/>)}
+                </div>
             </div>
         </div>
     )

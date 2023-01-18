@@ -19,7 +19,7 @@ export default function CreateTask(props) {
     return (
         <form onSubmit={handleSubmit} id="task-form">
             <input type="text" value={value} id="task-input" placeholder="Add a todo" onChange={(e) => setValue(e.target.value)}/>
-            <input type="submit" value="Submit" id="submit-btn"/>
+            <input type="submit" value="Add" id="submit-btn"/>
         </form>
     )
 }
