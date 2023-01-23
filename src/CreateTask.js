@@ -16,6 +16,11 @@ export default function CreateTask(props) {
         setValue("");
     }
 
+    // if(props.oldTask){
+    //     setValue(props.oldTask);
+    // }
+    
+
     return (
         <form onSubmit={handleSubmit} id="task-form">
             <input type="text" value={value} id="task-input" placeholder="Add a todo" onChange={(e) => setValue(e.target.value)}/>
