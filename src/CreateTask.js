@@ -3,7 +3,7 @@ import React, {useState} from "react";
 
 import "./CreateTask.css";
 
-export default function CreateTask(props) {
+function CreateTask(props) {
 
     let [value, setValue] = useState("");
 
@@ -16,9 +16,6 @@ export default function CreateTask(props) {
         setValue("");
     }
 
-    // if(props.oldTask){
-    //     setValue(props.oldTask);
-    // }
     
 
     return (
@@ -28,3 +25,5 @@ export default function CreateTask(props) {
         </form>
     )
 }
+
+export default React.memo(CreateTask);

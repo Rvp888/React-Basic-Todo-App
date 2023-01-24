@@ -1,5 +1,5 @@
 
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 
 import CreateTask from "./CreateTask";
 import Task from "./Task";
@@ -9,7 +9,7 @@ import "./TodoApp.css";
 export default function TodoApp() {
 
     const [tasks, setTasks] = useState([]);
-    let [oldTitle, setOldTitle] = useState("old");
+
     
     React.useEffect(() => {
         let getTasks = JSON.parse(localStorage.getItem("tasks"));
@@ -21,16 +21,18 @@ export default function TodoApp() {
     },[tasks]);
 
 
-    function addTask(task) {
+    const addTask = useCallback((task) => {
+        console.log("add task runned");
         setTasks(tasks => {
             return [
                 ...tasks,
                 task
             ]
         })
-    }
+    },[tasks]);
 
-    function pendingTasks() {
+
+    const pendingTasks = useCallback(() => {
         let pendingCount = 0;
         tasks.forEach((task) => {
             if(!task.completed){
@@ -38,38 +40,35 @@ export default function TodoApp() {
             }
         });
         return pendingCount;
-    }
+    },[tasks]);
+    
 
-    function updateTask(index) {
+    const updateTask = useCallback((index) => {
         setTasks((tasks) => {
             let newTasks = [...tasks];
             newTasks[index].completed = !newTasks[index].completed;
             return newTasks;
         })
-    }
+    },[tasks]);
+    
 
-    function removeTask(index) {
+    const removeTask = useCallback((index) => {
         setTasks((tasks) => {
             let newTasks = [...tasks];
             newTasks.splice(index, 1);
             return newTasks;
         })
-    }
+    },[tasks]);
 
     
-    function editTask(index) {
-        console.log(index);
-        setOldTitle((oldTitle)=>tasks[index].title);
-        console.log(oldTitle);
-        // function handleOldTitle(oldTitle) 
-    }
+
 
 
     return (
         <div className="todo-container">
             <h1 id="app-title">Todo-App</h1>
             <div className="create-todo">
-                <CreateTask addTask={addTask} oldTask={oldTitle}/>
+                <CreateTask addTask={addTask}/>
             </div>
             <div className="todo-list">
                 <h2 id="todo-list-title">Todo-Tasks</h2>
@@ -78,7 +77,7 @@ export default function TodoApp() {
                     <p id="pending-tasks">Pending tasks: {pendingTasks()}</p>
                 </div>
                 <div className="task-div">
-                    {tasks.map((task, index) => <Task {...task} key={index} index={index} updateTask={updateTask} editTask={editTask} removeTask={removeTask}/>)}
+                    {tasks.map((task, index) => <Task {...task} key={index} index={index} updateTask={updateTask} removeTask={removeTask}/>)}
                 </div>
             </div>
         </div>
