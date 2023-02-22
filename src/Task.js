@@ -13,7 +13,10 @@ function Task(props) {
         props.removeTask(props.index);
     }
 
-
+    function handleEditTask() {
+        const newTask = prompt("Edit Task", props.title);
+        props.editTask(props.index, newTask);
+    }
 
     return (
         <div className="task">
@@ -21,7 +24,7 @@ function Task(props) {
             <div class="update-delete-btns">
                 {props.completed && <button id="complete-btn" onClick={handleUpdateTask}>Completed</button>}
                 {!props.completed && <button id="update-btn" onClick={handleUpdateTask}>Pending</button>}
-                <button id="edit-btn">Edit</button>
+                <button id="edit-btn" onClick={handleEditTask}>Edit</button>
                 <button id="delete-btn" onClick={handleRemoveTask}>Remove</button>
             </div>
         </div>

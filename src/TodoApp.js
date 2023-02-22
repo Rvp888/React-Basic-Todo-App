@@ -9,6 +9,7 @@ import "./TodoApp.css";
 export default function TodoApp() {
 
     const [tasks, setTasks] = useState([]);
+    const [filter, setFilter] = useState(null);
 
     
     React.useEffect(() => {
@@ -29,7 +30,7 @@ export default function TodoApp() {
                 task
             ]
         })
-    },[tasks]);
+    },[]);
 
 
     const pendingTasks = useCallback(() => {
@@ -49,7 +50,16 @@ export default function TodoApp() {
             newTasks[index].completed = !newTasks[index].completed;
             return newTasks;
         })
-    },[tasks]);
+    },[]);
+
+
+    const editTask = useCallback((index,task) => {
+        setTasks((tasks) => {
+            let newTasks = [...tasks];
+            newTasks[index].title = task;
+            return newTasks;
+        })
+    },[]);
     
 
     const removeTask = useCallback((index) => {
@@ -58,10 +68,20 @@ export default function TodoApp() {
             newTasks.splice(index, 1);
             return newTasks;
         })
-    },[tasks]);
+    },[]);
 
-    
-
+    const handleFilter = (e) => {
+        console.log(e.target.value);
+        if (e.target.value == 'true'){
+            setFilter(true);
+        }
+        else if (e.target.value == 'false'){
+            setFilter(false);
+        }
+        else {
+            setFilter(null);
+        }  
+    }
 
 
     return (
@@ -76,8 +96,17 @@ export default function TodoApp() {
                     <p id="total-tasks">Total tasks: {tasks.length}</p>
                     <p id="pending-tasks">Pending tasks: {pendingTasks()}</p>
                 </div>
+                <div>
+                    <label>Filter: </label>
+                    <select onChange={e => handleFilter(e)} className="filter">
+                        <option value={null}>All</option>
+                        <option value={true}>Completed</option>
+                        <option value={false}>Pending</option>
+                    </select>
+                </div>
+                
                 <div className="task-div">
-                    {tasks.map((task, index) => <Task {...task} key={index} index={index} updateTask={updateTask} removeTask={removeTask}/>)}
+                    {tasks.map((task, index) => filter === null || filter === task.completed ? <Task {...task} key={index} index={index} updateTask={updateTask} editTask={editTask} removeTask={removeTask}/> : <></>)}
                 </div>
             </div>
         </div>
